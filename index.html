@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The Switch demo</title>
+    <style>
+        .item-custom {
+            width: 200px;
+            height: 60px;
+        }
+        .item-handle {
+            position: absolute;
+            vertical-align: top;
+        }
+        td {
+            padding: 6px;
+        }
+    </style>
+</head>
+<body>
+    <h1>The switch demo</h1>
+    <hr>
+    <table>
+        <tr>
+            <td>Basic use three states</td>
+            <td>value</td>
+            <td>action</td>
+        </tr>
+        <tr>
+            <td><div id="basic-switch"></div></td>
+            <td><span id="basic-switch-value"></span></td>
+            <td>
+                <select name="basic-switch-actions" id="basic-switch-actions">
+                    <option value="on">On</option>
+                    <option value="noset" selected>Noset</option>
+                    <option value="off">Off</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Basic use two states customice background color</td>
+            <td colspan="2">value</td>
+        </tr>
+        <tr>
+            <td><div id="two-steps-switch"></div></td>
+            <td colspan="2"><span id="two-steps-switch-value"></span></td>
+        </tr>
+        <tr>
+            <td>Disabled reject three states</td>
+            <td>value</td>
+            <td>action</td>
+        </tr>
+        <tr>
+            <td><div id="basic-switch-reject-disabled"></div></td>
+            <td><span id="basic-switch-value-reject-disabled"></span></td>
+            <td>
+                <select name="basic-switch-enabled" id="basic-switch-enabled">
+                    <option value="true">Enabled</option>
+                    <option value="false" selected>Disabled</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Disabled reject two state customice background color</td>
+            <td colspan="2">value</td>
+        </tr>
+        <tr>
+            <td><div id="two-steps-switch-reject-disabled"></div></td>
+            <td colspan="2"><span id="two-steps-switch-value-reject-disabled"></span></td>
+        </tr>
+        <tr>
+            <td>Disabled approve three states</td>
+            <td colspan="2">value</td>
+        </tr>
+        <tr>
+            <td><div id="basic-switch-approve-disabled"></div></td>
+            <td colspan="2"><span id="basic-switch-value-approve-disabled"></span></td>
+        </tr>
+    </table>
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="jquery.theswitch.min.js"></script>
+    <script>
+        $(function () { 
+            $("#basic-switch").setTheSwitch({
+                action: 'noset',
+                onSet: function(e) {
+                    $("#basic-switch").getTheSwitchValue(value=>{
+                        $("#basic-switch-value").html(value);
+                    });
+                },
+                onClickOn: function(e) {
+                    var element = $(e).attr('id');
+                    console.log("client basic click on " + element);
+                    $("#basic-switch").getTheSwitchValue(value=>{
+                        $("#basic-switch-value").html(value);
+                    });
+                    $( "#basic-switch-actions" ).val('on');
+                },
+                onClickNoSet: function(e) {
+                    var element = $(e).attr('id');
+                    console.log("client basic click noset "  + element);
+                    $("#basic-switch").getTheSwitchValue(value=>{
+                        $("#basic-switch-value").html(value);
+                    });
+                    $( "#basic-switch-actions" ).val('noset');
+                },
+                onClickOff: function(e) {
+                    var element = $(e).attr('id');
+                    console.log("client basic click off "  + element);
+                    $("#basic-switch").getTheSwitchValue(value=>{
+                        $("#basic-switch-value").html(value);
+                    });
+                    $( "#basic-switch-actions" ).val('off');
+                }
+            });
+            $("#two-steps-switch").setTheSwitch({
+                steps: 2,
+                action: 'noset',
+                bgOff: '#f1f1f1',
+                onLabel:'',
+                offLabel:'',
+                onSet: function(e) {
+                    $("#two-steps-switch").getTheSwitchValue(value=>{
+                        $("#two-steps-switch-value").html(value);
+                    });
+                },
+                onClickOn: function(e) {
+                    var element = $(e).attr('id');
+                    console.log("client basic click on "  + element);
+                    $("#two-steps-switch").getTheSwitchValue(value=>{
+                        $("#two-steps-switch-value").html(value);
+                    });
+                    
+                },
+                onClickOff: function(e) {
+                    var element = $(e).attr('id');
+                    console.log("client basic click off "  + element);
+                    $("#two-steps-switch").getTheSwitchValue(value=>{
+                        $("#two-steps-switch-value").html(value);
+                    });
+                }
+            });
+            $("#basic-switch-reject-disabled").setTheSwitch({
+                action: 'off',
+                disabled: true,
+                onSet: function(e) {
+                    $("#basic-switch-reject-disabled").getTheSwitchValue(value=>{
+                        $("#basic-switch-value-reject-disabled").html(value);
+                    });
+                },
+                onClickOn: function(e) {
+                    var element = $(e).attr('id');
+                    console.log("client basic click on " + element);
+                    $("#basic-switch-reject-disabled").getTheSwitchValue(value=>{
+                        $("#basic-switch-value-reject-disabled").html(value);
+                    });
+                },
+                onClickNoSet: function(e) {
+                    var element = $(e).attr('id');
+                    console.log("client basic click noset "  + element);
+                    $("#basic-switch-reject-disabled").getTheSwitchValue(value=>{
+                        $("#basic-switch-value-reject-disabled").html(value);
+                    });
+                },
+                onClickOff: function(e) {
+                    var element = $(e).attr('id');
+                    console.log("client basic click off "  + element);
+                    $("#basic-switch-reject-disabled").getTheSwitchValue(value=>{
+                        $("#basic-switch-value-reject-disabled").html(value);
+                    });
+                }
+            });
+            $("#two-steps-switch-reject-disabled").setTheSwitch({
+                steps: 2,
+                action: 'off',
+                bgOff: "#f1f1f1",
+                disabled: true,
+                onSet: function(e) {
+                    $("#two-steps-switch-reject-disabled").getTheSwitchValue(value=>{
+                        $("#two-steps-switch-value-reject-disabled").html(value);
+                    });
+                },
+                onClickOn: function(e) {
+                    var element = $(e).attr('id');
+                    console.log("client basic click on "  + element);
+                    $("#two-steps-switch-reject-disabled").getTheSwitchValue(value=>{
+                        $("#two-steps-switch-value-reject-disabled").html(value);
+                    });
+                    
+                },
+                onClickOff: function(e) {
+                    var element = $(e).attr('id');
+                    console.log("client basic click off "  + element);
+                    $("#two-steps-switch-reject-disabled").getTheSwitchValue(value=>{
+                        $("#two-steps-switch-value-reject-disabled").html(value);
+                    });
+                }
+            });
+            $("#basic-switch-approve-disabled").setTheSwitch({
+                steps: 3,
+                action: 'on',
+                disabled: true,
+                onSet: function(e) {
+                    $("#basic-switch-approve-disabled").getTheSwitchValue(value=>{
+                        $("#basic-switch-value-approve-disabled").html(value);
+                    });
+                },
+                onClickOn: function(e) {
+                    var element = $(e).attr('id');
+                    console.log("client basic click on "  + element);
+                    $("#basic-switch-approve-disabled").getTheSwitchValue(value=>{
+                        $("#basic-switch-value-approve-disabled").html(value);
+                    });
+                    
+                },
+                onClickNoSet: function(e) {
+                    var element = $(e).attr('id');
+                    console.log("client basic click noset "  + element);
+                    $("#basic-switch-approve-disabled").getTheSwitchValue(value=>{
+                        $("#basic-switch-value-approve-disabled").html(value);
+                    });
+                    
+                },
+                onClickOff: function(e) {
+                    var element = $(e).attr('id');
+                    console.log("client basic click off "  + element);
+                    $("#basic-switch-approve-disabled").getTheSwitchValue(value=>{
+                        $("#basic-switch-value-approve-disabled").html(value);
+                    });
+                }
+            });
+
+            $( "#basic-switch-actions" ).change(function() {
+                var action = $(this).val();
+                $("#basic-switch").setTheSwitchValue(action);
+            });
+
+            $( "#basic-switch-enabled" ).change(function() {
+                var enabled = JSON.parse($(this).val());
+                $("#basic-switch-reject-disabled").enabledTheSwitch(enabled);
+            });
+        });
+    </script>
+
+</body>
+</html>
